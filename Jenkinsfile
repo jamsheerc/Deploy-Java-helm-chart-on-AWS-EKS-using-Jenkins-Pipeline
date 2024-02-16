@@ -33,6 +33,7 @@ pipeline {
      stage('Deploying Node App helm chrt on eks') {
       steps {
         script {
+		  sh 'ssh root@172.31.93.127'
           sh ('aws eks update-kubeconfig --name sample --region ap-south-1')
           sh "kubectl get ns"
           sh "helm install java ./java-chart"
