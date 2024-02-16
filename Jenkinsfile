@@ -5,8 +5,7 @@ pipeline {
     stage("Clone code from GitHub") {
             steps {
                 script {
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/devopshint/Deploy-Java-helm-chart-on-AWS-EKS-using-Jenkins-Pipeline/']])
-                }
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'gitcredential', url: 'https://github.com/jamsheerc/Deploy-Java-helm-chart-on-AWS-EKS-using-Jenkins-Pipeline.git']])
             }
         }
      
@@ -23,8 +22,8 @@ pipeline {
         stage('Deploy Docker Image to DockerHub') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'devopshint', variable: 'devopshint')]) {
-                    sh 'docker login -u devopshint -p ${devopshint}'
+                 withCredentials([string(credentialsId: 'dockerlogin', variable: 'dockerlogin')]) {
+                    sh 'docker login -u jamsheerc -p ${devopshint}'
             }
             sh 'docker push devopshint/java-1.0'
         }
