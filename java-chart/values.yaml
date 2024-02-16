@@ -42,7 +42,7 @@ securityContext: {}
 service:
   type: LoadBalancer
   port: 80
-  targetPort: 8080
+  targetport: 8080
   protocol: TCP
   name: java-chart
 
@@ -73,6 +73,15 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
 
 autoscaling:
   enabled: false
